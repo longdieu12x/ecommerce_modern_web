@@ -1,52 +1,46 @@
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
-import React from "react";
-import { styledProps } from "../../models/ArrowProps";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { styledProps, slideProps, wrapProps } from "../../models/slideProps";
+import { SlideTypes } from "../../models/slide";
+import { sliderItems } from "../../data";
 const Slider: React.FC<{}> = () => {
+  const [slideIndex, setSlideIndex] = useState(0);
+  let i: any = null;
+  const slideHandler = (direction: string) => {
+    if (direction === "left") {
+      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : sliderItems.length - 1);
+    } else {
+      setSlideIndex(slideIndex < sliderItems.length - 1 ? slideIndex + 1 : 0);
+    }
+    clearTimeout(i);
+  };
+  useEffect(() => {
+    // Auto change slide panel
+    i = setTimeout(() => {
+      setSlideIndex(state => (state < sliderItems.length - 1 ? state + 1 : 0));
+    }, 5000);
+  }, [slideIndex]);
   return (
     <Container>
-      <Arrow direction="left">
+      <Arrow direction="left" onClick={() => slideHandler("left")}>
         <ArrowLeftOutlined />
       </Arrow>
-      <Wrapper>
-        <Slide>
-          <ImgContainer>
-            <Image src="https://i.ibb.co/DG69bQ4/2.png" />
-          </ImgContainer>
-          <InfoContainer>
-            <Title>SUMMER SAL</Title>
-            <Desc>
-              DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.
-            </Desc>
-            <Button>SHOW NOW</Button>
-          </InfoContainer>
-        </Slide>
-        <Slide>
-          <ImgContainer>
-            <Image src="https://i.ibb.co/DG69bQ4/2.png" />
-          </ImgContainer>
-          <InfoContainer>
-            <Title>SUMMER SAL</Title>
-            <Desc>
-              DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.
-            </Desc>
-            <Button>SHOW NOW</Button>
-          </InfoContainer>
-        </Slide>
-        <Slide>
-          <ImgContainer>
-            <Image src="https://i.ibb.co/DG69bQ4/2.png" />
-          </ImgContainer>
-          <InfoContainer>
-            <Title>SUMMER SAL</Title>
-            <Desc>
-              DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.
-            </Desc>
-            <Button>SHOW NOW</Button>
-          </InfoContainer>
-        </Slide>
+      <Wrapper slideIndex={slideIndex}>
+        {sliderItems.map((item: SlideTypes) => (
+          <Slide key={item.id} bg={item.bg}>
+            <ImgContainer>
+              <Image src={item.img} />
+            </ImgContainer>
+            <InfoContainer>
+              <Title>{item.title}</Title>
+              <Desc>{item.desc}</Desc>
+              <Button>SHOW NOW</Button>
+            </InfoContainer>
+          </Slide>
+        ))}
       </Wrapper>
-      <Arrow direction="right">
+      <Arrow direction="right" onClick={() => slideHandler("right")}>
         <ArrowRightOutlined />
       </Arrow>
     </Container>
@@ -60,6 +54,7 @@ const Container = styled.div`
   display: flex;
   /* background: coral; */
   position: relative;
+  overflow: hidden;
 `;
 
 const Arrow = styled.div<styledProps>`
@@ -78,18 +73,22 @@ const Arrow = styled.div<styledProps>`
   margin: auto;
   cursor: pointer;
   opacity: 0.5;
+  z-index: 999;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<wrapProps>`
   height: 100%;
   display: flex;
+  transform: translateX(${props => props.slideIndex * -100}vw);
+  transition: all 2s ease-in-out;
 `;
 
-const Slide = styled.div`
+const Slide = styled.div<slideProps>`
   width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
+  background-color: #${props => props.bg};
 `;
 const ImgContainer = styled.div`
   height: 100%;
