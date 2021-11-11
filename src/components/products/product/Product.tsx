@@ -41,11 +41,13 @@ const Info = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.5% ease;
+  cursor: pointer;
 `;
 const Container = styled.div`
-  flex: 3;
+  flex: 4;
   margin: 5px;
-  min-width: 280px;
+  min-width: 420px;
   height: 350px;
   display: flex;
   align-items: center;

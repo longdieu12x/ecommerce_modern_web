@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { CategoryTypes } from "src/models/category";
 import { categories } from "src/data";
 import CategoryItem from "./categoryItem/CategoryItem";
-
+import { mobile } from "src/responsive";
 const Categories: React.FC<{}> = () => {
   return (
     <Container>
@@ -20,4 +20,7 @@ const Container = styled.div`
   display: flex;
   padding: 20px;
   justify-content: space-between;
+  ${mobile({
+    padding: "0", flexDirection: "column"
+  })};
 `;

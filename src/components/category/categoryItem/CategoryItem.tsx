@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { CategoryTypes } from "src/models/category";
+import { mobile } from "src/responsive";
 
 const CategoryItem: React.FC<{ item: CategoryTypes }> = props => {
   const { item } = props;
@@ -27,6 +28,9 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  ${mobile({
+    height: "30pvh"
+  })};
 `;
 const Info = styled.div`
   position: absolute;

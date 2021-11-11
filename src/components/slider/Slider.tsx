@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { styledProps, slideProps, wrapProps } from "../../models/slideProps";
 import { SlideTypes } from "../../models/slide";
 import { sliderItems } from "../../data";
+import { mobile } from "src/responsive";
 const Slider: React.FC<{}> = () => {
   const [slideIndex, setSlideIndex] = useState(0);
   let i: any = null;
@@ -55,6 +56,9 @@ const Container = styled.div`
   /* background: coral; */
   position: relative;
   overflow: hidden;
+  ${mobile({
+    display: "none"
+  })};
 `;
 
 const Arrow = styled.div<styledProps>`
