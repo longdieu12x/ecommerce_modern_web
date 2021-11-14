@@ -7,7 +7,7 @@ import Products from "src/components/products/Products";
 import Newsletter from "src/components/newsletter/Newsletter";
 import Footer from "src/components/footer/Footer";
 
-const Home: React.FC<{}> = () => {
+const Home: React.FC<{}> = props => {
   return (
     <div className="home">
       <Navbar />

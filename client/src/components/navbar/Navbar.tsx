@@ -1,26 +1,30 @@
 import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import React from "react";
-import {mobile} from "src/responsive";
+import { mobile } from "src/responsive";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 const Navbar: React.FC<{}> = () => {
+  const history = useHistory();
   return (
     <Container>
       <Wrapper>
         <Left>
           <Language>EN</Language>
           <SearchContainer>
-            <Input placeholder="Search"/>
+            <Input placeholder="Search" />
             <Search style={{ color: "gray", fontSize: "16px" }} />
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>Djan</Logo>
+          <Logo onClick={() => history.push("/")}>Djan</Logo>
         </Center>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
-          <MenuItem>
+          <MenuItem onClick={() => history.push("/register")}>
+            REGISTER
+          </MenuItem>
+          <MenuItem onClick={() => history.push("/login")}>SIGN IN</MenuItem>
+          <MenuItem onClick={() => history.push("/cart")}>
             <Badge badgeContent={4} color="primary">
               <ShoppingCartOutlined />
             </Badge>
@@ -69,6 +73,7 @@ const Logo = styled.h1`
   ${mobile({
     fontSize: "24px"
   })};
+  cursor: pointer;
 `;
 const Right = styled.div`
   flex: 1;
@@ -97,9 +102,10 @@ const Input = styled.input`
 
 const MenuItem = styled.div`
   font-size: 14px;
-  cursor: poitner;
+  cursor: pointer;
   margin-left: 25px;
   ${mobile({
-    fontSize: "12px", marginLeft: "10px"
+    fontSize: "12px",
+    marginLeft: "10px"
   })};
 `;

@@ -2,16 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import { CategoryTypes } from "src/models/category";
 import { mobile } from "src/responsive";
-
+import { Link } from "react-router-dom";
 const CategoryItem: React.FC<{ item: CategoryTypes }> = props => {
   const { item } = props;
   return (
     <Container>
-      <Image src={item.img} />
-      <Info>
-        <Title>{item.title}</Title>
-        <Button>SHOP NOW</Button>
-      </Info>
+      <Link to={`/products/${item.category}`}>
+        <Image src={item.img} />
+        <Info>
+          <Title>{item.title}</Title>
+          <Button>SHOP NOW</Button>
+        </Info>
+      </Link>
     </Container>
   );
 };

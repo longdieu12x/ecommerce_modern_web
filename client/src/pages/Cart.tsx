@@ -110,9 +110,7 @@ const Container = styled.div``;
 
 const Wrapper = styled.div`
   padding: 20px;
-  ${mobile({
-    padding: "10px"
-  })}
+  ${mobile({ padding: "10px" })}
 `;
 
 const Title = styled.h1`
@@ -125,87 +123,48 @@ const Top = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 20px;
-  height: 50vh;
 `;
 
 const TopButton = styled.button<typeProps>`
   padding: 10px;
   font-weight: 600;
   cursor: pointer;
-  border: ${props => (props.typed == "filled" ? "none" : "default")};
+  border: ${props => (props.typed === "filled" ? "none" : "default")};
   background-color: ${props =>
-    props.typed == "filled" ? "black" : "transparent"};
-  color: ${props => (props.typed == "filled" ? "white" : "black")};
+    props.typed === "filled" ? "black" : "transparent"};
+  color: ${props => (props.typed === "filled" ? "white" : "default")};
 `;
 
 const TopTexts = styled.div`
-  ${mobile({
-    display: "none"
-  })}
+  ${mobile({ display: "none" })}
 `;
-
 const TopText = styled.span`
   text-decoration: underline;
   cursor: pointer;
-  margin: 0 10px;
+  margin: 0px 10px;
 `;
 
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
-  ${mobile({
-    flexDirection: "column"
-  })};
+  ${mobile({ flexDirection: "column" })}
 `;
 
 const Info = styled.div`
   flex: 3;
 `;
 
-const Summary = styled.div`
-  flex: 1;
-  border: 0.5px solid lightgray;
-  border-radius: 10px;
-`;
-
-const SummaryTitle = styled.h1`
-  font-weight: 200;
-`;
-
-const SummaryItem = styled.div<typeProps>`
-  margin: 30px 0px;
-  display: flex;
-  justify-content: space-between;
-  font-weight: ${props => props.typed === "total" ? "500" : "default"};
-  font-size: ${props => props.typed === "total" ? "500" : "default"};
-`;
-
-const SummaryItemText = styled.span`
-`;
-
-const SummaryItemPrice = styled.span``;
-
-const SummaryButton = styled.button`
-  width: 100%;
-  padding: 10px;
-  background: black;
-  color: white;
-  font-weight: 600;
-`;
-
-
 const Product = styled.div`
   display: flex;
   justify-content: space-between;
-  ${mobile({
-    flexDirection: "column"
-  })}
+  ${mobile({ flexDirection: "column" })}
 `;
 
 const ProductDetail = styled.div`
   flex: 2;
   display: flex;
 `;
+
 const Image = styled.img`
   width: 200px;
 `;
@@ -225,7 +184,7 @@ const ProductColor = styled.div<colorProps>`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: ${props => props.color};
+  background-color: ${props => props.color};
 `;
 
 const ProductSize = styled.span``;
@@ -247,21 +206,49 @@ const ProductAmountContainer = styled.div`
 const ProductAmount = styled.div`
   font-size: 24px;
   margin: 5px;
-  ${mobile({
-    margin: "5px 15px"
-  })}
+  ${mobile({ margin: "5px 15px" })}
 `;
 
 const ProductPrice = styled.div`
   font-size: 30px;
   font-weight: 200;
-  ${mobile({
-    marginBottom: "20px"
-  })}
+  ${mobile({ marginBottom: "20px" })}
 `;
 
 const Hr = styled.hr`
   background-color: #eee;
   border: none;
   height: 1px;
+`;
+
+const Summary = styled.div`
+  flex: 1;
+  border: 0.5px solid lightgray;
+  border-radius: 10px;
+  padding: 20px;
+  height: 50vh;
+`;
+
+const SummaryTitle = styled.h1`
+  font-weight: 200;
+`;
+
+const SummaryItem = styled.div<typeProps>`
+  margin: 30px 0px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: ${props => (props.typed === "total" ? "500" : "default")};
+  font-size: ${props => (props.typed === "total" ? "24px" : "default")};
+`;
+
+const SummaryItemText = styled.span``;
+
+const SummaryItemPrice = styled.span``;
+
+const SummaryButton = styled.button`
+  width: 100%;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  font-weight: 600;
 `;

@@ -8,7 +8,7 @@ import { colorProps } from "src/models/slideProps";
 import { Add, Remove } from "@material-ui/icons";
 import { mobile } from "src/responsive";
 
-const Product: React.FC<{}> = () => {
+const Product: React.FC<{}> = props => {
   return (
     <Container>
       <Navbar />

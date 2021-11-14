@@ -21,6 +21,7 @@ const Container = styled.div`
   padding: 20px;
   justify-content: space-between;
   ${mobile({
-    padding: "0", flexDirection: "column"
+    padding: "0",
+    flexDirection: "column"
   })};
 `;
