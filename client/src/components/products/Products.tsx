@@ -14,18 +14,69 @@ const Products: React.FC<{
   const { category, filters, sort } = props;
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  console.log(process.env.REACT_APP_API);
+  console.log(sort);
   useEffect(() => {
     getAllProducts(category, res => {
-      console.log(res);
+      setProducts(res);
     });
   }, [category]);
-
+  useEffect(() => {
+    category &&
+      setFilteredProducts(
+        products.filter((item: PopularTypes) =>
+          filters
+            ? Object.entries(filters).every(([key, value]) =>
+                item[key].includes(value)
+              )
+            : true
+        )
+      );
+    // console.log(filteredProducts);
+    // category &&
+    //   setFilteredProducts(
+    //     products.filter((item: PopularTypes) => {
+    //       let i = true;
+    //       if (filters && filters.color) {
+    //         i = filters.color.toLowerCase() === item.color.toLowerCase();
+    //       }
+    //       if (filters && filters.size) {
+    //         console.log(filters.size);
+    //         i = filters.size.toLowerCase() === item.size.toLowerCase();
+    //       }
+    //       return i;
+    //     })
+    //   );
+  }, [products, category, filters]);
+  useEffect(() => {
+    if (sort === "newest") {
+      setFilteredProducts(
+        filteredProducts.sort(
+          (a: PopularTypes, b: PopularTypes) => a.createdAt - b.createdAt
+        )
+      );
+    } else if (sort === "asc") {
+      setFilteredProducts(
+        filteredProducts.sort(
+          (a: PopularTypes, b: PopularTypes) => a.price - b.price
+        )
+      );
+    } else {
+      setFilteredProducts(
+        filteredProducts.sort(
+          (a: PopularTypes, b: PopularTypes) => b.price - a.price
+        )
+      );
+    }
+  }, [sort]);
   return (
     <Container>
-      {popularProducts.map((item: PopularTypes) => (
-        <Product key={item.id} item={item} />
-      ))}
+      {category
+        ? filteredProducts.map((item: PopularTypes) => (
+            <Product key={item.id} item={item} />
+          ))
+        : products.slice(0,8).map((item: PopularTypes) => (
+            <Product key={item.id} item={item} />
+          ))}
     </Container>
   );
 };

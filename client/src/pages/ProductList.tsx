@@ -66,7 +66,7 @@ const ProductList: React.FC<{}> = () => {
           </Select>
         </Filter>
       </FilterContainer>
-      <Products filters={filters} category="category" sort={sort} />
+      <Products filters={filters} category={category} sort={sort} />
       <Newsletter />
       <Footer />
     </Container>

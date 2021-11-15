@@ -1,13 +1,15 @@
 import axios from "axios";
 
-export const axiosConfig  = () => { 
-  const token = localStorage.getItem(`${process.env.REACT_APP_PREFIX_LOCAL}_access_token`);
+export const axiosConfig = () => {
+  const token = localStorage.getItem(
+    `${process.env.REACT_APP_PREFIX_LOCAL}_access_token`
+  );
   const instance = axios.create({
-      baseURL: `${process.env.REACT_APP_API}/api`,
-      headers: { 
-          authorization: `Bearer ${token}`
-      }
+    baseURL: `${process.env.REACT_APP_API}/api`,
+    headers: {
+      authorization: `Bearer ${token}`
+    }
   });
 
   return instance;
-}
+};
