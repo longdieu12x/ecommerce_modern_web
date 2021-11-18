@@ -33,7 +33,7 @@ const Register: React.FC<{}> = () => {
             setError("Register failed! Please try again.");
           } else {
             setError("");
-            history.push("/");
+            history.push("/login");
           }
         }
       );
