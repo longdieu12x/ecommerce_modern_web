@@ -4,8 +4,15 @@ import React from "react";
 import { mobile } from "src/responsive";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { State } from "src/state";
+import { logOut } from "src/services/user";
 const Navbar: React.FC<{}> = () => {
   const history = useHistory();
+  const user = useSelector((state: State) => state.user);
+  const logoutHandler = () => {
+    logOut();
+  };
   return (
     <Container>
       <Wrapper>
@@ -20,10 +27,18 @@ const Navbar: React.FC<{}> = () => {
           <Logo onClick={() => history.push("/")}>Djan</Logo>
         </Center>
         <Right>
-          <MenuItem onClick={() => history.push("/register")}>
-            REGISTER
-          </MenuItem>
-          <MenuItem onClick={() => history.push("/login")}>SIGN IN</MenuItem>
+          {Object.keys(user.data).length == 0 ? (
+            <>
+              <MenuItem onClick={() => history.push("/register")}>
+                REGISTER
+              </MenuItem>
+              <MenuItem onClick={() => history.push("/login")}>
+                SIGN IN
+              </MenuItem>
+            </>
+          ) : (
+            <MenuItem onClick={logoutHandler}>LOG OUT</MenuItem>
+          )}
           <MenuItem onClick={() => history.push("/cart")}>
             <Badge badgeContent={4} color="primary">
               <ShoppingCartOutlined />

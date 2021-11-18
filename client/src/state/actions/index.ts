@@ -5,7 +5,7 @@ import {
 } from "../actions-interfaces";
 import { ActionType } from "../action-types/index";
 import { Dispatch } from "redux";
-
+export * from "./user";
 export const depositMoney = (amount: number) => {
   return (dispatch: Dispatch<DepositAction>) => {
     dispatch({

@@ -7,6 +7,7 @@ import {
   SearchOutlined,
   ShoppingCartOutlined
 } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 const Product: React.FC<{ item: PopularTypes }> = props => {
   const { item } = props;
   return (
@@ -18,7 +19,9 @@ const Product: React.FC<{ item: PopularTypes }> = props => {
           <ShoppingCartOutlined />
         </Icon>
         <Icon>
-          <SearchOutlined />
+          <Link style={{ color: "black" }} to={`/product/${item._id}`}>
+            <SearchOutlined />
+          </Link>
         </Icon>
         <Icon>
           <FavoriteBorderOutlined />

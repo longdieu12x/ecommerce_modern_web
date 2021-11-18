@@ -1,24 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { mobile } from "src/responsive";
-
+import { useSelector } from "react-redux";
+import { State } from "src/state";
+import { useHistory } from "react-router-dom";
+import { registerAccount } from "src/services/user";
 const Register: React.FC<{}> = () => {
+  const user = useSelector((state: State) => state.user);
+  const history = useHistory();
+  const [error, setError] = useState<string>("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+
+  //Middleware
+  if (Object.keys(user.data).length > 0) {
+    history.push("/");
+  }
+
+  const submitHandler = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === confirm) {
+      registerAccount(
+        {
+          username: username,
+          email: email,
+          password: password
+        },
+        res => {
+          if (res.status === 0) {
+            setError("Register failed! Please try again.");
+          } else {
+            setError("");
+            history.push("/");
+          }
+        }
+      );
+    } else {
+      setError("2 passwords are not the same!");
+    }
+  };
   return (
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
-        <Form>
-          <Input placeholder="name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="confirm password" />
+        <Form onSubmit={submitHandler}>
+          <Input
+            placeholder="username"
+            onChange={e => setUsername(e.target.value)}
+          />
+          <Input placeholder="email" onChange={e => setEmail(e.target.value)} />
+          <Input
+            placeholder="password"
+            type="password"
+            onChange={e => setPassword(e.target.value)}
+          />
+          <Input
+            placeholder="confirm password"
+            type="password"
+            onChange={e => setConfirm(e.target.value)}
+          />
           <Agreement>
             By creating an account, I consent to the processing of my personal
-            data in accordance with the <b>PRIVACY POLICY</b>
+            data in accordance with the{" "}
+            <b style={{ textDecoration: "underline", cursor: "pointer" }}>
+              PRIVACY POLICY
+            </b>
           </Agreement>
-          <Button>CREATE</Button>
+          <Error>{error}</Error>
+          <Button type="submit">CREATE</Button>
         </Form>
       </Wrapper>
     </Container>
@@ -50,6 +101,13 @@ const Wrapper = styled.div`
   })}
 `;
 
+const Error = styled.p`
+  color: red;
+  font-size: 14px;
+  margin: 0px 0 10px 0;
+  width: 100%;
+`;
+
 const Form = styled.form`
   display: flex;
   flex-wrap: wrap;
@@ -79,5 +137,6 @@ const Button = styled.button`
   border: none;
   padding: 15px 20px;
   background: teal;
+  cursor: pointer;
   color: white;
 `;

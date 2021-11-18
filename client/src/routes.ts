@@ -11,7 +11,7 @@ const routes: Route[] = [
   { path: "/", exact: true, component: Home, name: "Home" },
   {
     path: "/products/:category",
-    exact: false,
+    exact: true,
     component: ProductList,
     name: "ProductList"
   },

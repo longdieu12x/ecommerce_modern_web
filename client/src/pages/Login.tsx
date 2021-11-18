@@ -1,17 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { mobile } from "src/responsive";
+import { useDispatch, useSelector } from "react-redux";
+import { userState, userData } from "src/models/reduxProps/userProps";
+import { actionCreators, State } from "../state";
+import { storeUserData } from "src/services/user";
+import { useHistory } from "react-router-dom";
+import { bindActionCreators } from "redux";
+var _ = require("lodash");
 const Login: React.FC<{}> = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const state = useSelector((state: State) => state);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const user = state.user.data!;
+  const { login } = bindActionCreators(actionCreators, dispatch);
+  const loginHandler = (e: React.FormEvent) => {
+    e.preventDefault();
+    login({
+      username: username,
+      password: password
+    });
+  };
+  useEffect(() => {
+    if (!_.isEmpty(user)) {
+      storeUserData(user as userData);
+      history.push("/");
+    }
+  }, [user]);
   return (
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
-        <Form>
-          <Input placeholder="username" />
-          <Input placeholder="password" />
-          <Button>LOGIN</Button>
-          <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
-          <Link>CREATE NEW ACCOUNT</Link>
+        <Form onSubmit={loginHandler}>
+          <Input
+            placeholder="username"
+            onChange={e => setUsername(e.target.value)}
+          />
+          <Input
+            placeholder="password"
+            type="password"
+            onChange={e => setPassword(e.target.value)}
+          />
+          <Button type="submit">LOGIN</Button>
+          <Link onClick={() => history.push("/register")}>
+            CREATE NEW ACCOUNT
+          </Link>
         </Form>
       </Wrapper>
     </Container>

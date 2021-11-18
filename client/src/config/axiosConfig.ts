@@ -10,6 +10,5 @@ export const axiosConfig = () => {
       authorization: `Bearer ${token}`
     }
   });
-
   return instance;
 };

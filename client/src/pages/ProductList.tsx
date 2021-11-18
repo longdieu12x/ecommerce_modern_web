@@ -24,7 +24,7 @@ const ProductList: React.FC<{}> = () => {
     <Container>
       <Navbar />
       <Announcement />
-      <Title>Dresses</Title>
+      <Title>{category.charAt(0).toUpperCase() + category.slice(1)}</Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
@@ -76,7 +76,7 @@ const ProductList: React.FC<{}> = () => {
 export default ProductList;
 
 const Container = styled.div``;
-const Title = styled.div`
+const Title = styled.h1`
   margin: 20px;
 `;
 const FilterContainer = styled.div`

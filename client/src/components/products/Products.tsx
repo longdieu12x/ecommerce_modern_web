@@ -14,7 +14,6 @@ const Products: React.FC<{
   const { category, filters, sort } = props;
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  console.log(sort);
   useEffect(() => {
     getAllProducts(category, res => {
       setProducts(res);
@@ -31,21 +30,6 @@ const Products: React.FC<{
             : true
         )
       );
-    // console.log(filteredProducts);
-    // category &&
-    //   setFilteredProducts(
-    //     products.filter((item: PopularTypes) => {
-    //       let i = true;
-    //       if (filters && filters.color) {
-    //         i = filters.color.toLowerCase() === item.color.toLowerCase();
-    //       }
-    //       if (filters && filters.size) {
-    //         console.log(filters.size);
-    //         i = filters.size.toLowerCase() === item.size.toLowerCase();
-    //       }
-    //       return i;
-    //     })
-    //   );
   }, [products, category, filters]);
   useEffect(() => {
     if (sort === "newest") {
@@ -74,9 +58,9 @@ const Products: React.FC<{
         ? filteredProducts.map((item: PopularTypes) => (
             <Product key={item.id} item={item} />
           ))
-        : products.slice(0,8).map((item: PopularTypes) => (
-            <Product key={item.id} item={item} />
-          ))}
+        : products
+            .slice(0, 8)
+            .map((item: PopularTypes) => <Product key={item.id} item={item} />)}
     </Container>
   );
 };

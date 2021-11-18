@@ -18,8 +18,8 @@ export interface ProductProps {
   desc: string;
   img: string;
   categories: string[];
-  size: string;
-  color: string;
+  size: string[];
+  color: string[];
   price: string;
   createdAt: string;
   updatedAt: string;
