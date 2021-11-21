@@ -10,13 +10,24 @@ import { mobile } from "src/responsive";
 import { useLocation } from "react-router-dom";
 import { getProductDetail } from "src/services/product";
 import { ProductProps } from "src/models/product";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { productReducerProps } from "src/models/reduxProps/productProps";
+import { State, actionCreators } from "src/state";
+ 
 const Product: React.FC<{}> = props => {
+  const dispatch = useDispatch();
   const [product, setProduct] = useState<ProductProps>();
   const [quantity, setQuantity] = useState(0);
   const [color, setColor] = useState<string>();
   const [size, setSize] = useState<string>();
   const pathname = useLocation().pathname;
   const productId = pathname.split("/")[2];
+  const { addCartHandler } = bindActionCreators(actionCreators, dispatch);
+  const addToCartHandler = () => {
+    const data = {...product, color, size, quantity};
+    addCartHandler(data as productReducerProps);
+  }
   const decreaseQuantity = () => {
     if (quantity > 0) {
       setQuantity(state => state - 1);
@@ -27,8 +38,10 @@ const Product: React.FC<{}> = props => {
   };
   useEffect(() => {
     getProductDetail(productId, res => {
+      console.log(res);
       setProduct(res);
       setSize(res.size[0]);
+      setColor(res.color[0]);
     });
   }, [productId]);
   return (
@@ -78,7 +91,7 @@ const Product: React.FC<{}> = props => {
                   onClick={() => increaseQuantity()}
                 />
               </AmountContainer>
-              <Button>Add to cart</Button>
+              <Button onClick={addToCartHandler}>Add to cart</Button>
             </AddContainer>
           </InfoContainer>
         </Wrapper>

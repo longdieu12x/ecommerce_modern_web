@@ -39,7 +39,7 @@ const Products: React.FC<{
         )
       );
     } else if (sort === "asc") {
-      setFilteredProducts(
+    setFilteredProducts(
         filteredProducts.sort(
           (a: PopularTypes, b: PopularTypes) => a.price - b.price
         )

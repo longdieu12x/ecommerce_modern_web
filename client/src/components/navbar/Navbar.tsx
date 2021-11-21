@@ -9,7 +9,8 @@ import { State } from "src/state";
 import { logOut } from "src/services/user";
 const Navbar: React.FC<{}> = () => {
   const history = useHistory();
-  const user = useSelector((state: State) => state.user);
+  const state = useSelector((state: State) => state);
+  const { user, cart }  =  state;
   const logoutHandler = () => {
     logOut();
   };
@@ -40,7 +41,7 @@ const Navbar: React.FC<{}> = () => {
             <MenuItem onClick={logoutHandler}>LOG OUT</MenuItem>
           )}
           <MenuItem onClick={() => history.push("/cart")}>
-            <Badge badgeContent={4} color="primary">
+            <Badge badgeContent={cart.data.quantity} color="primary">
               <ShoppingCartOutlined />
             </Badge>
           </MenuItem>

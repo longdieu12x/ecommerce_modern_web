@@ -20,8 +20,9 @@ export interface ProductProps {
   categories: string[];
   size: string[];
   color: string[];
-  price: string;
+  price: number;
   createdAt: string;
   updatedAt: string;
   __v: number;
+  quantity?: number;
 }
